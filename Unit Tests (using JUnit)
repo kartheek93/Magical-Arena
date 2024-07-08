@@ -1,0 +1,39 @@
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class ArenaTest {
+
+    @Test
+    public void testPlayerInitialization() {
+        Player player = new Player(100, 10, 20);
+        assertEquals(100, player.getHealth());
+        assertEquals(10, player.getStrength());
+        assertEquals(20, player.getAttack());
+    }
+
+    @Test
+    public void testPlayerHealthReduction() {
+        Player player = new Player(100, 10, 20);
+        player.reduceHealth(30);
+        assertEquals(70, player.getHealth());
+    }
+
+    @Test
+    public void testPlayerIsAlive() {
+        Player player = new Player(100, 10, 20);
+        assertTrue(player.isAlive());
+        player.reduceHealth(100);
+        assertFalse(player.isAlive());
+    }
+
+    @Test
+    public void testFightSimulation() {
+        Player playerA = new Player(50, 5, 10);
+        Player playerB = new Player(100, 10, 5);
+
+        Arena arena = new Arena(playerA, playerB);
+        Player winner = arena.startFight();
+        assertNotNull(winner);
+        assertTrue(winner.isAlive());
+    }
+}
